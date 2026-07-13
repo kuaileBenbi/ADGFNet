@@ -1,0 +1,11 @@
+# Operating-system and editor metadata
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+*.pyc
+__pycache__/
+checkpoints/
+weights/
+logs/
