@@ -1,7 +1,4 @@
-<div align="center">
-
-> [!IMPORTANT]
-> The official implementation is now available. Datasets and pretrained weights are hosted separately to keep this repository lightweight.
+> **Important:** The official implementation is now available. Datasets and pretrained weights are hosted separately to keep this repository lightweight.
 
 ## 🔍 Overview
 
@@ -98,8 +95,7 @@ Two evaluation modes are provided. **We recommend `test_all.py` to reproduce all
 
 #### Evaluate all pretrained models (Recommended)
 
-> [!TIP]
-> This command automatically evaluates **ADGFNet** and **ADGFNet-Lite** on both **NUDT-SIRST** and **IRSTD-1K**, producing all reported metrics at once.
+> **Recommended:** Run this command to automatically evaluate **ADGFNet** and **ADGFNet-Lite** on both **NUDT-SIRST** and **IRSTD-1K**, producing all reported metrics at once.
 
 Place all four pretrained checkpoints according to the [expected directory layout](#2-datasets-and-pretrained-weights), then run:
 
