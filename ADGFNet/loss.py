@@ -175,22 +175,3 @@ def build_seg_loss(loss_name):
         )
     raise ValueError("Unknown loss_name: {}".format(loss_name))
 
-class ISNetLoss(nn.Module):
-    def __init__(self):
-        super(ISNetLoss, self).__init__()
-        self.softiou = SoftIoULoss()
-        self.bce = nn.BCELoss()
-        self.grad = Get_gradient_nopadding()
-
-    def forward(self, preds, gt_masks):
-        edge_gt = self.grad(gt_masks.clone())
-
-        ### img loss
-        loss_img = self.softiou(preds[0], gt_masks)
-
-        ### edge loss
-        loss_edge = 10 * self.bce(preds[1], edge_gt) + self.softiou(
-            preds[1].sigmoid(), edge_gt
-        )
-
-        return loss_img + loss_edge
