@@ -1,20 +1,5 @@
 <div align="center">
 
-# ADGFNet
-
-### Anomaly-Driven Gated Fusion Network for Infrared Small Target Detection
-
-[![Project Page](https://img.shields.io/badge/Project-ADGFNet-4c8bf5?style=flat-square)](#adgfnet)
-[![Task](https://img.shields.io/badge/Task-Infrared%20Small%20Target%20Detection-orange?style=flat-square)](#-overview)
-[![Parameters](https://img.shields.io/badge/Params-0.58M-brightgreen?style=flat-square)](#-quantitative-results)
-[![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
-
-**A lightweight, physics-prior-guided framework for accurate infrared small target detection.**
-
-[Overview](#-overview) · [Architecture](#-architecture) · [Quick Start](#-quick-start) · [Results](#-quantitative-results) · [Roadmap](#-roadmap) · [Citation](#-citation)
-
-</div>
-
 > [!IMPORTANT]
 > The official implementation is now available. Datasets and pretrained weights are hosted separately to keep this repository lightweight.
 
@@ -35,10 +20,11 @@ ADGFNet is a lightweight end-to-end framework that explicitly embeds infrared-sp
 
 ADGFNet employs a four-stage lightweight residual encoder. LAB modules enhance the first three stages and produce anomaly-aware features together with single-channel anomaly maps. AG-FPN reuses these anomaly maps to guide top-down feature fusion. A residual refinement module and segmentation head generate the final prediction. ADGFNet-Lite narrows the encoder and neck channels and removes the refinement module for resource-constrained deployment.
 
-| Model | LAB | Neck | Refinement | Parameters | FLOPs at 256 × 256 |
-|:--|:--:|:--:|:--:|--:|--:|
-| **ADGFNet** | Yes | AG-FPN | Yes | 0.58M | 7.88G |
-| **ADGFNet-Lite** | Yes | AG-FPN | No | 0.12M | 0.89G |
+
+| Model            | LAB |  Neck  | Refinement | Parameters | FLOPs at 256 × 256 |
+| :----------------- | :---: | :------: | :----------: | -----------: | --------------------: |
+| **ADGFNet**      | Yes | AG-FPN |    Yes    |      0.58M |               7.88G |
+| **ADGFNet-Lite** | Yes | AG-FPN |     No     |      0.12M |               0.89G |
 
 ## 🚀 Quick Start
 
@@ -103,6 +89,55 @@ Use `--device cpu` for CPU execution or `--device cuda` to explicitly select CUD
 
 ### 4. Evaluation
 
+Two evaluation modes are provided. **We recommend `test_all.py` to reproduce all results with a single command.**
+
+| Script | Use case | Coverage |
+|:--|:--|:--|
+| **`test_all.py`** ⭐ | Complete evaluation (recommended) | 2 models × 2 datasets |
+| `test.py` | Targeted evaluation | 1 model × 1 dataset |
+
+#### Evaluate all pretrained models (Recommended)
+
+> [!TIP]
+> This command automatically evaluates **ADGFNet** and **ADGFNet-Lite** on both **NUDT-SIRST** and **IRSTD-1K**, producing all reported metrics at once.
+
+Place all four pretrained checkpoints according to the [expected directory layout](#2-datasets-and-pretrained-weights), then run:
+
+```bash
+python test_all.py
+```
+
+For every model–dataset pair, the script reports:
+
+```text
+Pixel Accuracy · mIoU · nIoU · F-score · Pd · Fa
+```
+
+A timestamped summary is saved automatically to:
+
+```text
+checkpoints/test_<timestamp>.txt
+```
+
+<details>
+<summary><b>Custom evaluation options</b></summary>
+
+Use the following options to customize the dataset root, output directory, threshold, or batch size:
+
+```bash
+python test_all.py \
+  --dataset_dir ./datasets \
+  --save_log ./checkpoints/ \
+  --threshold 0.5 \
+  --batch_size 1
+```
+
+</details>
+
+#### Evaluate a single model
+
+Use `test.py` when evaluating only one specific model–dataset pair:
+
 ```bash
 # Evaluate ADGFNet on NUDT-SIRST
 python test.py \
@@ -125,32 +160,35 @@ The following measurements are taken from the submitted manuscript. FLOPs and la
 
 ### NUDT-SIRST
 
-| Method | Params (M) | FLOPs (G) | Latency (ms) | IoU (%) | nIoU (%) | F1 (%) | Pd (%) | Fa |
-|:--|--:|--:|--:|--:|--:|--:|--:|--:|
-| ACM | 0.40 | 0.40 | 2.94 | 70.65 | 73.34 | 82.79 | 97.56 | 20.27 |
-| ALCNet | 0.43 | **0.38** | **2.75** | 92.23 | 92.35 | 95.97 | 97.88 | 6.20 |
-| DNANet | 4.70 | 14.26 | 26.50 | 93.08 | 94.39 | 96.41 | 99.15 | 9.08 |
-| SCTransNet | 11.19 | 10.12 | 32.50 | 94.28 | 94.54 | 97.06 | **99.37** | 3.49 |
-| **ADGFNet** | 0.58 | 7.88 | 5.28 | **96.25** | **95.94** | **98.09** | 99.15 | **2.34** |
-| **ADGFNet-Lite** | **0.12** | 0.89 | 3.97 | 93.67 | 93.47 | 96.72 | 99.05 | 4.76 |
+
+| Method           | Params (M) | FLOPs (G) | Latency (ms) |   IoU (%) |  nIoU (%) |    F1 (%) |    Pd (%) |       Fa |
+| :----------------- | -----------: | ----------: | -------------: | ----------: | ----------: | ----------: | ----------: | ---------: |
+| ACM              |       0.40 |      0.40 |         2.94 |     70.65 |     73.34 |     82.79 |     97.56 |    20.27 |
+| ALCNet           |       0.43 |  **0.38** |     **2.75** |     92.23 |     92.35 |     95.97 |     97.88 |     6.20 |
+| DNANet           |       4.70 |     14.26 |        26.50 |     93.08 |     94.39 |     96.41 |     99.15 |     9.08 |
+| SCTransNet       |      11.19 |     10.12 |        32.50 |     94.28 |     94.54 |     97.06 | **99.37** |     3.49 |
+| **ADGFNet**      |       0.58 |      7.88 |         5.28 | **96.25** | **95.94** | **98.09** |     99.15 | **2.34** |
+| **ADGFNet-Lite** |   **0.12** |      0.89 |         3.97 |     93.67 |     93.47 |     96.72 |     99.05 |     4.76 |
 
 ### IRSTD-1K
 
-| Method | Params (M) | FLOPs (G) | Latency (ms) | IoU (%) | nIoU (%) | F1 (%) | Pd (%) | Fa |
-|:--|--:|--:|--:|--:|--:|--:|--:|--:|
-| ACM | 0.40 | 1.61 | 2.89 | 63.87 | 61.52 | 77.95 | 88.88 | 10.68 |
-| ALCNet | 0.43 | **1.51** | **2.73** | 64.94 | 63.19 | 78.75 | 88.55 | 21.26 |
-| AGPCNet | 12.43 | 173.02 | 46.30 | **67.73** | 65.94 | 79.85 | 93.28 | 14.52 |
-| SCTransNet | 11.19 | 40.46 | 60.36 | 66.58 | 66.51 | **80.38** | 93.27 | 22.17 |
-| **ADGFNet** | 0.58 | 31.53 | 16.13 | 66.70 | **67.20** | 80.02 | 90.23 | **8.56** |
-| **ADGFNet-Lite** | **0.12** | 3.58 | 7.42 | 66.45 | 67.07 | 79.84 | 89.23 | 9.72 |
+
+| Method           | Params (M) | FLOPs (G) | Latency (ms) |   IoU (%) |  nIoU (%) |    F1 (%) | Pd (%) |       Fa |
+| :----------------- | -----------: | ----------: | -------------: | ----------: | ----------: | ----------: | -------: | ---------: |
+| ACM              |       0.40 |      1.61 |         2.89 |     63.87 |     61.52 |     77.95 |  88.88 |    10.68 |
+| ALCNet           |       0.43 |  **1.51** |     **2.73** |     64.94 |     63.19 |     78.75 |  88.55 |    21.26 |
+| AGPCNet          |      12.43 |    173.02 |        46.30 | **67.73** |     65.94 |     79.85 |  93.28 |    14.52 |
+| SCTransNet       |      11.19 |     40.46 |        60.36 |     66.58 |     66.51 | **80.38** |  93.27 |    22.17 |
+| **ADGFNet**      |       0.58 |     31.53 |        16.13 |     66.70 | **67.20** |     80.02 |  90.23 | **8.56** |
+| **ADGFNet-Lite** |   **0.12** |      3.58 |         7.42 |     66.45 |     67.07 |     79.84 |  89.23 |     9.72 |
 
 ## 📈 ROC Curves
 
 ADGFNet obtains AUCs of **0.992** on NUDT-SIRST and **0.941** on IRSTD-1K.
 
-| NUDT-SIRST | IRSTD-1K |
-|:--:|:--:|
+
+|                      NUDT-SIRST                      |                     IRSTD-1K                     |
+| :-----------------------------------------------------: | :-------------------------------------------------: |
 | ![ROC curve on NUDT-SIRST](images/roc_NUDT_SIRST.png) | ![ROC curve on IRSTD-1K](images/roc_IRSTD-1K.png) |
 
 ## 🖼️ Qualitative Results
@@ -167,14 +205,14 @@ ADGFNet obtains AUCs of **0.992** on NUDT-SIRST and **0.941** on IRSTD-1K.
 
 ## 🗺️ Roadmap
 
-- [x] Release the ADGFNet project page
-- [x] Release the network architecture and experimental results
-- [x] Release qualitative comparisons and Grad-CAM analysis
-- [x] Release the training and evaluation code
-- [x] Release dataset preparation instructions
-- [x] Release pretrained ADGFNet and ADGFNet-Lite models
-- [x] Add reproducible evaluation examples
-- [ ] Add single-image inference and visualization scripts
+- [X]  Release the ADGFNet project page
+- [X]  Release the network architecture and experimental results
+- [X]  Release qualitative comparisons and Grad-CAM analysis
+- [X]  Release the training and evaluation code
+- [X]  Release dataset preparation instructions
+- [X]  Release pretrained ADGFNet and ADGFNet-Lite models
+- [X]  Add reproducible evaluation examples
+- [ ]  Add single-image inference and visualization scripts
 
 ## 📦 Code and Pretrained Models
 
