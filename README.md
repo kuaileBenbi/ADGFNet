@@ -8,6 +8,7 @@
 [![Task](https://img.shields.io/badge/Task-Infrared%20Small%20Target%20Detection-orange?style=flat-square)](#-overview)
 [![Parameters](https://img.shields.io/badge/Params-0.58M-brightgreen?style=flat-square)](#-quantitative-results)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
+[![DOI](https://zenodo.org/badge/1298476271.svg)](https://doi.org/10.5281/zenodo.21359994)
 
 **A lightweight, physics-prior-guided framework for accurate infrared small target detection.**
 
