@@ -11,12 +11,12 @@
 
 **A lightweight, physics-prior-guided framework for accurate infrared small target detection.**
 
-[Overview](#-overview) · [Architecture](#-architecture) · [Results](#-quantitative-results) · [Visualization](#-qualitative-results) · [Roadmap](#-roadmap) · [Citation](#-citation)
+[Overview](#-overview) · [Architecture](#-architecture) · [Quick Start](#-quick-start) · [Results](#-quantitative-results) · [Roadmap](#-roadmap) · [Citation](#-citation)
 
 </div>
 
 > [!IMPORTANT]
-> This repository currently serves as the official project page for ADGFNet. **The source code and pretrained models will be released upon paper acceptance.**
+> The official implementation is now available. Datasets and pretrained weights are hosted separately to keep this repository lightweight.
 
 ## 🔍 Overview
 
@@ -39,6 +39,85 @@ ADGFNet employs a four-stage lightweight residual encoder. LAB modules enhance t
 |:--|:--:|:--:|:--:|--:|--:|
 | **ADGFNet** | Yes | AG-FPN | Yes | 0.58M | 7.88G |
 | **ADGFNet-Lite** | Yes | AG-FPN | No | 0.12M | 0.89G |
+
+## 🚀 Quick Start
+
+### 1. Installation
+
+Clone the repository and enter the implementation directory:
+
+```bash
+git clone <repository-url>
+cd ADGFNet-public/ADGFNet
+```
+
+Create a Python environment and install the required packages:
+
+```bash
+conda create -n adgfnet python=3.9 -y
+conda activate adgfnet
+pip install torch torchvision numpy matplotlib opencv-python scikit-image pillow
+```
+
+> Please select the PyTorch build compatible with your CUDA version from the official PyTorch installation guide.
+
+### 2. Datasets and Pretrained Weights
+
+Download the prepared datasets and pretrained checkpoints from **[Quark Drive](https://pan.quark.cn/s/844804935be8?pwd=ZS8u)** (access code: `ZS8u`), then place the extracted files under `ADGFNet/` using the following layout:
+
+```text
+ADGFNet/
+├── checkpoints/
+│   ├── IRSTD-1K/
+│   │   ├── ADGFNet.pth.tar
+│   │   └── ADGFNetLite.pth.tar
+│   └── NUDT-SIRST/
+│       ├── ADGFNet.pth.tar
+│       └── ADGFNetLite.pth.tar
+└── datasets/
+    ├── IRSTD-1K/
+    │   ├── images/
+    │   ├── masks/
+    │   └── img_idx/
+    └── NUDT-SIRST/
+        ├── images/
+        ├── masks/
+        └── img_idx/
+```
+
+Dataset images, masks, and model weights are intentionally excluded from Git. The required directory structure and dataset split files are retained in the repository.
+
+### 3. Training
+
+Run the commands from the `ADGFNet/` directory. For example:
+
+```bash
+# Train ADGFNet on NUDT-SIRST
+python train.py --model_names ADGFNet --dataset_names NUDT-SIRST --save ./log
+
+# Train ADGFNet-Lite on IRSTD-1K with automatic mixed precision
+python train.py --model_names ADGFNetLite --dataset_names IRSTD-1K --save ./log --amp
+```
+
+Use `--device cpu` for CPU execution or `--device cuda` to explicitly select CUDA. Training on a GPU is recommended.
+
+### 4. Evaluation
+
+```bash
+# Evaluate ADGFNet on NUDT-SIRST
+python test.py \
+  --model_name ADGFNet \
+  --dataset_names NUDT-SIRST \
+  --dataset_dir ./datasets \
+  --weight_path ./checkpoints/NUDT-SIRST/ADGFNet.pth.tar
+
+# Evaluate ADGFNet-Lite on IRSTD-1K
+python test.py \
+  --model_name ADGFNetLite \
+  --dataset_names IRSTD-1K \
+  --dataset_dir ./datasets \
+  --weight_path ./checkpoints/IRSTD-1K/ADGFNetLite.pth.tar
+```
 
 ## 📊 Quantitative Results
 
@@ -91,14 +170,15 @@ ADGFNet obtains AUCs of **0.992** on NUDT-SIRST and **0.941** on IRSTD-1K.
 - [x] Release the ADGFNet project page
 - [x] Release the network architecture and experimental results
 - [x] Release qualitative comparisons and Grad-CAM analysis
-- [ ] Release the training and evaluation code
-- [ ] Release configuration files and data-preparation instructions
-- [ ] Release pretrained ADGFNet and ADGFNet-Lite models
-- [ ] Add reproducible inference examples
+- [x] Release the training and evaluation code
+- [x] Release dataset preparation instructions
+- [x] Release pretrained ADGFNet and ADGFNet-Lite models
+- [x] Add reproducible evaluation examples
+- [ ] Add single-image inference and visualization scripts
 
-## 💻 Code and Pretrained Models
+## 📦 Code and Pretrained Models
 
-The source code, training and evaluation scripts, configuration files, and pretrained models will be released upon paper acceptance.
+The training and evaluation code is located in [`ADGFNet/`](ADGFNet/). Prepared datasets and pretrained weights for ADGFNet and ADGFNet-Lite are available from **[Quark Drive](https://pan.quark.cn/s/844804935be8?pwd=ZS8u)** (access code: `ZS8u`).
 
 ## 🤝 Acknowledgements
 
@@ -118,4 +198,4 @@ The formal citation will be added once the paper is accepted and publication met
 
 ## 📄 License
 
-This project page is released under the [MIT License](LICENSE). The license for the source-code release will be provided together with the official implementation.
+This project is released under the [MIT License](LICENSE).

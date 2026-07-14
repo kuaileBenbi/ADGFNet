@@ -6,6 +6,21 @@ Thumbs.db
 
 *.pyc
 __pycache__/
-checkpoints/
-weights/
 logs/
+
+# Local training outputs
+ADGFNet/log/
+
+# Model weights: keep checkpoint directories, but do not commit binaries
+ADGFNet/checkpoints/**/*.pth
+ADGFNet/checkpoints/**/*.pth.tar
+ADGFNet/checkpoints/**/*.pt
+ADGFNet/checkpoints/**/*.ckpt
+
+# Dataset payloads: keep directory layout and split files only
+ADGFNet/datasets/**/*.png
+ADGFNet/datasets/**/*.jpg
+ADGFNet/datasets/**/*.jpeg
+ADGFNet/datasets/**/*.bmp
+ADGFNet/datasets/**/*.tif
+ADGFNet/datasets/**/*.tiff
