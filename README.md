@@ -1,4 +1,22 @@
-> **Important:** The official implementation is now available. Datasets and pretrained weights are hosted separately to keep this repository lightweight.
+<div align="center">
+
+# ADGFNet
+
+### Anomaly-Driven Gated Fusion Network for Infrared Small Target Detection
+
+[![Project Page](https://img.shields.io/badge/Project-ADGFNet-4c8bf5?style=flat-square)](#adgfnet)
+[![Task](https://img.shields.io/badge/Task-Infrared%20Small%20Target%20Detection-orange?style=flat-square)](#-overview)
+[![Parameters](https://img.shields.io/badge/Params-0.58M-brightgreen?style=flat-square)](#-quantitative-results)
+[![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
+
+**A lightweight, physics-prior-guided framework for accurate infrared small target detection.**
+
+[Overview](#-overview) · [Architecture](#-architecture) · [Quick Start](#-quick-start) · [Results](#-quantitative-results) · [Roadmap](#-roadmap) · [Citation](#-citation)
+
+</div>
+
+> [!IMPORTANT]
+> The official implementation is now available. Datasets and pretrained weights are hosted separately to keep this repository lightweight.
 
 ## 🔍 Overview
 
