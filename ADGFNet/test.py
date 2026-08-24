@@ -23,7 +23,7 @@ def parse_args():
                         help="List of dataset names to test")
     parser.add_argument("--patchSize", type=int, default=256, help="Testing patch size")
     parser.add_argument("--dataset_dir", type=str, default='./datasets', help="Root directory of datasets")
-    parser.add_argument("--weight_path", type=str, default='./log/NUDT-SIRST/ADGFNet.pth.tar',
+    parser.add_argument("--weight_path", type=str, default='./checkpoints/NUDT-SIRST/ADGFNet.pth.tar',
                         help="Path to trained model weights")
     parser.add_argument("--threshold", type=float, default=0.5, help="Threshold for binary prediction")
     parser.add_argument("--batch_size", type=int, default=1, help="Batch size for testing")
