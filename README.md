@@ -12,7 +12,7 @@
 
 **A lightweight, physics-prior-guided framework for accurate infrared small target detection.**
 
-[Overview](#-overview) · [Architecture](#-architecture) · [Quick Start](#-quick-start) · [Citation](#-citation)
+[Overview](#-overview) · [Architecture](#-architecture) · [Quick Start](#-quick-start) · [Results](#-quantitative-results) · [Citation](#-citation)
 
 </div>
 
@@ -168,6 +168,26 @@ python test.py \
   --dataset_dir ./datasets \
   --weight_path ./checkpoints/IRSTD-1K/ADGFNetLite.pth.tar
 ```
+
+## 📊 Quantitative Results
+
+The following measurements are taken from the submitted manuscript. FLOPs and latency are measured at the evaluation resolution of each dataset. Fa is reported in units of 10⁻⁶.
+
+### NUDT-SIRST
+
+
+| Method           | Params (M) | FLOPs (G) | Latency (ms) |   IoU (%) |  nIoU (%) |    F1 (%) |    Pd (%) |       Fa |
+| :----------------- | -----------: | ----------: | -------------: | ----------: | ----------: | ----------: | ----------: | ---------: |
+| **ADGFNet**      |       0.58 |      7.88 |         5.28 |     96.25 |     95.94 |     98.09 |     99.15 |     2.34 |
+| **ADGFNet-Lite** |       0.12 |      0.89 |         3.97 |     93.67 |     93.47 |     96.72 |     99.05 |     4.76 |
+
+### IRSTD-1K
+
+
+| Method           | Params (M) | FLOPs (G) | Latency (ms) |   IoU (%) |  nIoU (%) |    F1 (%) | Pd (%) |       Fa |
+| :----------------- | -----------: | ----------: | -------------: | ----------: | ----------: | ----------: | -------: | ---------: |
+| **ADGFNet**      |       0.58 |     31.53 |        16.13 |     66.70 |     67.20 |     80.02 |  90.23 |     8.56 |
+| **ADGFNet-Lite** |       0.12 |      3.58 |         7.42 |     66.45 |     67.07 |     79.84 |  89.23 |     9.72 |
 
 
 ## ⚖️ Accuracy–Efficiency Trade-off
