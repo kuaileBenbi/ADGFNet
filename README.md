@@ -12,7 +12,7 @@
 
 **A lightweight, physics-prior-guided framework for accurate infrared small target detection.**
 
-[Overview](#-overview) · [Architecture](#-architecture) · [Quick Start](#-quick-start) · [Results](#-quantitative-results) · [Roadmap](#-roadmap) · [Citation](#-citation)
+[Overview](#-overview) · [Architecture](#-architecture) · [Quick Start](#-quick-start) · [Citation](#-citation)
 
 </div>
 
@@ -21,7 +21,7 @@
 
 ## 🔍 Overview
 
-ADGFNet is a lightweight end-to-end framework that explicitly embeds infrared-specific physical priors into feature extraction and cross-scale fusion. It achieves strong infrared small target detection performance with only **0.58M parameters**. The deployment-oriented **ADGFNet-Lite** uses only **0.12M parameters and 0.89G FLOPs**.
+ADGFNet is a lightweight end-to-end framework that explicitly embeds infrared-specific physical priors into feature extraction and cross-scale fusion. It achieves strong infrared small target detection performance with only **0.58M parameters**. The deployment-oriented **ADGFNet-Lite** uses only **0.12M parameters**.
 
 ## ✨ Highlights
 
@@ -169,65 +169,12 @@ python test.py \
   --weight_path ./checkpoints/IRSTD-1K/ADGFNetLite.pth.tar
 ```
 
-## 📊 Quantitative Results
-
-The following measurements are taken from the submitted manuscript. FLOPs and latency are measured at the evaluation resolution of each dataset. Fa is reported in units of 10⁻⁶.
-
-### NUDT-SIRST
-
-
-| Method           | Params (M) | FLOPs (G) | Latency (ms) |   IoU (%) |  nIoU (%) |    F1 (%) |    Pd (%) |       Fa |
-| :----------------- | -----------: | ----------: | -------------: | ----------: | ----------: | ----------: | ----------: | ---------: |
-| ACM              |       0.40 |      0.40 |         2.94 |     70.65 |     73.34 |     82.79 |     97.56 |    20.27 |
-| ALCNet           |       0.43 |  **0.38** |     **2.75** |     92.23 |     92.35 |     95.97 |     97.88 |     6.20 |
-| DNANet           |       4.70 |     14.26 |        26.50 |     93.08 |     94.39 |     96.41 |     99.15 |     9.08 |
-| SCTransNet       |      11.19 |     10.12 |        32.50 |     94.28 |     94.54 |     97.06 | **99.37** |     3.49 |
-| **ADGFNet**      |       0.58 |      7.88 |         5.28 | **96.25** | **95.94** | **98.09** |     99.15 | **2.34** |
-| **ADGFNet-Lite** |   **0.12** |      0.89 |         3.97 |     93.67 |     93.47 |     96.72 |     99.05 |     4.76 |
-
-### IRSTD-1K
-
-
-| Method           | Params (M) | FLOPs (G) | Latency (ms) |   IoU (%) |  nIoU (%) |    F1 (%) | Pd (%) |       Fa |
-| :----------------- | -----------: | ----------: | -------------: | ----------: | ----------: | ----------: | -------: | ---------: |
-| ACM              |       0.40 |      1.61 |         2.89 |     63.87 |     61.52 |     77.95 |  88.88 |    10.68 |
-| ALCNet           |       0.43 |  **1.51** |     **2.73** |     64.94 |     63.19 |     78.75 |  88.55 |    21.26 |
-| AGPCNet          |      12.43 |    173.02 |        46.30 | **67.73** |     65.94 |     79.85 |  93.28 |    14.52 |
-| SCTransNet       |      11.19 |     40.46 |        60.36 |     66.58 |     66.51 | **80.38** |  93.27 |    22.17 |
-| **ADGFNet**      |       0.58 |     31.53 |        16.13 |     66.70 | **67.20** |     80.02 |  90.23 | **8.56** |
-| **ADGFNet-Lite** |   **0.12** |      3.58 |         7.42 |     66.45 |     67.07 |     79.84 |  89.23 |     9.72 |
-
-## 📈 ROC Curves
-
-ADGFNet obtains AUCs of **0.992** on NUDT-SIRST and **0.941** on IRSTD-1K.
-
-
-|                      NUDT-SIRST                      |                     IRSTD-1K                     |
-| :-----------------------------------------------------: | :-------------------------------------------------: |
-| ![ROC curve on NUDT-SIRST](images/roc_NUDT_SIRST.png) | ![ROC curve on IRSTD-1K](images/roc_IRSTD-1K.png) |
-
-## 🖼️ Qualitative Results
-
-![Qualitative comparison](images/visualization.png)
 
 ## ⚖️ Accuracy–Efficiency Trade-off
 
 ![Accuracy-efficiency comparison](images/Efficiency_Bubble_Plot.png)
 
-## 🔥 Grad-CAM Analysis
 
-![Grad-CAM analysis](images/gradcam.png)
-
-## 🗺️ Roadmap
-
-- [X]  Release the ADGFNet project page
-- [X]  Release the network architecture and experimental results
-- [X]  Release qualitative comparisons and Grad-CAM analysis
-- [X]  Release the training and evaluation code
-- [X]  Release dataset preparation instructions
-- [X]  Release pretrained ADGFNet and ADGFNet-Lite models
-- [X]  Add reproducible evaluation examples
-- [ ]  Add single-image inference and visualization scripts
 
 ## 📦 Code and Pretrained Models
 
